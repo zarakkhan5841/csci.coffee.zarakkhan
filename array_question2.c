@@ -1,69 +1,69 @@
 #include <stdio.h>
 
-void processTransactions(int numTransactions, int transactions[]);
+void Transactions(int numberoftransactions, int transactions[]);
 
-void processTransactions(int numTransactions, int transactions[]) {
-    int balance = 1000; // Initial balance
-    int unprocessed[50]; // Array to store unprocessed transactions
-    int unprocessedCount = 0; // Count of unprocessed transactions
+void Transactions(int numberoftransactions, int transactions[]) {
+    int balance = 1000; // pre defined balance 
+    int notperformed[50]; // an array that  stores  transactions that didnt get performed 
+    int notperformedCount = 0; // counting the number of  unperformed transactions
 
     printf("initial  balance: %d AED\n", balance);
 
-    // Process each transaction
-    for (int i = 0; i < numTransactions; i++) {
-        int currentTransaction = transactions[i];
-        printf("Transaction %d: %d AED\n", i + 1, currentTransaction);
+    // Processing every transaction 
+    for (int i = 0; i < numberoftransactions; i++) {
+        int originalTransaction = transactions[i];
+        printf("Transaction %d: %d AED\n", i + 1, originalTransaction);
 
-        // Checking if the transaction is a withdrawal and if there's enough balance
-        if (currentTransaction < 0 && balance + currentTransaction < 0) {
-            printf("Insufficient balance for transaction %d. Adding to unprocessed transactions.\n", i + 1);
-            unprocessed[unprocessedCount++] = currentTransaction;
+        // the following code checks  if the transaction is a taking the MONEY OUT  or  and if there's enough balance
+        if (originalTransaction < 0 && balance + originalTransaction < 0) {
+            printf("not enough balance for transaction %d. Adding to unperformed transactions.\n", i + 1);
+            notperformed[notperformedCount++] = originalTransaction;
             continue;
         }
 
-        // Update balance
-        balance += currentTransaction;
-        printf(" balance after updating : %d AED\n", balance);
+        // Updating the balance 
+        balance += originalTransaction;
+        printf(" after updating  your balance is : %d AED\n", balance);
 
-        // Stop if balance reaches 0 or goes negative
+        // Stop if balance reaches 0 or goes in negative value 
         if (balance <= 0) {
-            printf("Balance has reached zero.\n");
+            printf("your balance is 0 .\n");
             break;
         }
     }
 
-    printf("\nFinal balance: %d AED\n", balance);
+    printf("\nyour final  balance is: %d AED\n", balance);
 
-    // Display any unprocessed transactions
-    if (unprocessedCount > 0) {
-        printf("Unprocessed transactions: ");
-        for (int i = 0; i < unprocessedCount; i++) {
-            printf("%d AED ", unprocessed[i]);
+    // Displaying any  unperformed  transactions
+    if (notperformedCount > 0) {
+        printf("Unperformed transactions: ");
+        for (int i = 0; i < notperformedCount; i++) {
+            printf("%d AED ", notperformed[i]);
         }
         printf("\n");
     } else {
-        printf("All transactions processed successfully.\n");
+        printf("all of the  transactions became  successfully.\n");
     }
 }
 
 int main() {
-    int numTransactions;
+    int numberoftransactions;
 
-    // Get the number of transactions
+    // Getting number of transactions
     printf("give the  number of transactions: ");
-    scanf("%d", &numTransactions);
+    scanf("%d", &numberoftransactions);
 
-    int transactions[numTransactions]; // Array to store transactions
+    int transactions[numberoftransactions]; // an array that  stores all  transactions
 
-    // Input transactions
+    // Inputing the  transactions
     printf("give the transactions that you want to do  (positive for deposits, negative for withdrawals):\n");
-    for (int i = 0; i < numTransactions; i++) {
+    for (int i = 0; i < numberoftransactions; i++) {
         printf("Transaction %d: ", i + 1);
         scanf("%d", &transactions[i]);
     }
 
-    // Processing all the transactions 
-    processTransactions(numTransactions, transactions);
+    //  final Processing of all  transactions 
+    Transactions(numberoftransactions, transactions);
 
     return 0;
 }
